@@ -2,8 +2,8 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Ionicons } from '@expo/vector-icons';
-
 import HomeScreen from './src/screens/HomeScreen';
 import HomePage from './src/screens/HomePage';
 import CalendarScreen from './src/screens/Calendar';
@@ -76,122 +76,161 @@ const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const MainTabs = () => (
-  <Tab.Navigator
-    screenOptions={({ route }) => ({
-      tabBarIcon: ({ color, size }) => {
-        let iconName;
+	<Tab.Navigator
+		screenOptions={({ route }) => ({
+			tabBarIcon: ({ color, size }) => {
+				let iconName;
 
-        switch (route.name) {
-          case 'Home':
-            iconName = 'home';
-            break;
-          case 'Calendar':
-            iconName = 'calendar';
-            break;
-          case 'Statistics':
-            iconName = 'bar-chart';
-            break;
-          case 'Messages':
-            iconName = 'chatbubble';
-            break;
-          case 'Account':
-            iconName = 'person';
-            break;
-          default:
-            iconName = 'circle';
-            break;
-        }
+				switch (route.name) {
+					case 'Home':
+						iconName = 'home';
+						break;
+					case 'Calendar':
+						iconName = 'calendar';
+						break;
+					case 'Statistics':
+						iconName = 'bar-chart';
+						break;
+					case 'Messages':
+						iconName = 'chatbubble';
+						break;
+					case 'Account':
+						iconName = 'person';
+						break;
+					default:
+						iconName = 'circle';
+						break;
+				}
 
-        return <Ionicons name={iconName} size={size} color={color} />;
-      },
-      headerShown: false,
-      tabBarActiveTintColor: '#4460EF',
-      tabBarInactiveTintColor: 'gray',
-      tabBarStyle: {
-        display: 'flex',
-      },
-    })}
-  >
-    <Tab.Screen name="Home" component={HomePage} />
-    <Tab.Screen name="Calendar" component={CalendarScreen} />
-    <Tab.Screen name="Statistics" component={StatisticScreen} />
-    <Tab.Screen name="Messages" component={MessageScreen} />
-    <Tab.Screen name="Account" component={AccountScreen} />
-  </Tab.Navigator>
+				return <Ionicons name={iconName} size={size} color={color} />;
+			},
+			headerShown: false,
+			tabBarActiveTintColor: '#4460EF',
+			tabBarInactiveTintColor: 'gray',
+			tabBarStyle: {
+				display: 'flex',
+			},
+		})}
+	>
+		<Tab.Screen name="Home" component={HomePage} />
+		<Tab.Screen name="Calendar" component={CalendarScreen} />
+		<Tab.Screen name="Statistics" component={StatisticScreen} />
+		<Tab.Screen name="Messages" component={MessageScreen} />
+		<Tab.Screen name="Account" component={AccountScreen} />
+	</Tab.Navigator>
 );
 
 const App = () => {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="MainTabs" component={MainTabs} />
-        <Stack.Screen name="AccountType" component={AccountTypeScreen} />
-        <Stack.Screen name="HomePage" component={HomePage} />
-        <Stack.Screen name="PROPERTY" component={PropertyScreen} />
-        <Stack.Screen name="LOCATION" component={LocationScreen} />
-        <Stack.Screen name="MAPSCREEN" component={MapScreen} />
-        <Stack.Screen name="AmenityScreen" component={AmenityScreen} />
-        <Stack.Screen name="AddPhotoScreen" component={AddPhotoScreen} />
-        <Stack.Screen name="AddListingScreen" component={AddListingScreen} />
-        <Stack.Screen name="AboutScreen" component={AboutScreen} />
-        <Stack.Screen name="PlaceNameScreen" component={PlaceNameScreen} />
-        <Stack.Screen name="CreateProfileScreen" component={CreateProfileScreen} />
-        <Stack.Screen name="VerificationScreen" component={VerificationScreen} />
-        <Stack.Screen name="PhoneNumberScreen" component={PhoneNumberScreen} />
-        <Stack.Screen name="PhoneScreen" component={PhoneScreen} />
-        <Stack.Screen name="SettingScreen" component={SettingsScreen} />
-        <Stack.Screen name="Host" component={HostPreferenceScreen} />
-        <Stack.Screen name="Notice" component={NoticePeriodScreen} />
-        <Stack.Screen name="NoticeBoard" component={NoticeBoardScreen} />
-        <Stack.Screen name="PublishScreen" component={PublishScreen} />
-        <Stack.Screen name="Notification" component={NotificationScreen} />
-        <Stack.Screen name="ViewsBooking" component={ViewsBookingScreen} />
-        <Stack.Screen name="TransactionHistory" component={TransactionHistoryScreen} />
-        <Stack.Screen name="Conversation" component={ConversationScreen} />
-        <Stack.Screen name="AllListings" component={AllListingsScreen} />
-        <Stack.Screen name="ListingDetails" component={ListingDetailsScreen} />
-        <Stack.Screen name="ListingTitle" component={ListingTitleScreen} />
-        <Stack.Screen name="AmenitiesSetting" component={AmenitiesSettingScreen} />
-        <Stack.Screen name="ListingLocation" component={ListingLocationScreen} />
-        <Stack.Screen name="GuestBooking" component={GuestBookingScreen} />
-        <Stack.Screen name="Requirement" component={ListingRules} />
-        <Stack.Screen name="Listing" component={Listing} />
-        <Stack.Screen name="Cancellation" component={CancellationPolicyScreen} />
-        <Stack.Screen name="AvailabilitySettings" component={AvailabilitySettings} />
-        <Stack.Screen name="TripLenght" component={TripLength} />
-        <Stack.Screen name="CheckInCheckOut" component={CheckInCheckOut} />
-        <Stack.Screen name="Regulations" component={Regulations} />
-        <Stack.Screen name="Status" component={StatusScreen} />
-        <Stack.Screen name="MyProfile" component={MyProfile} />
-        <Stack.Screen name="ProfileEdit" component={ProfileEdit} />
-        <Stack.Screen name="Wallet" component={Wallet} />
-        <Stack.Screen name="NotificationSettings" component={NotificationSettings} />
-        <Stack.Screen name="Privacy" component={PrivacyScreen} />
-        <Stack.Screen name="Security" component={SecurityScreen} />
-        <Stack.Screen name="HelpCenter" component={HelpCenterScreen} />
-        <Stack.Screen name="Help" component={HelpScreen} />
-        <Stack.Screen name="DeleteAccount" component={DeleteAccountScreen} />
-        <Stack.Screen name="Consent" component={ConsentScreen} />
-        <Stack.Screen name="Warning" component={WarningScreen} />
-        <Stack.Screen name="Confirmation" component={ConfirmationScreen} />
-        <Stack.Screen name="Verification" component={VerificationCodeScreen} />
-        <Stack.Screen name="Success" component={SuccessScreen} />
-        <Stack.Screen name="CarOwner" component={CarOwnerVerification} />
-        <Stack.Screen name="Proof" component={ProofInsuranceScreen} />
-        <Stack.Screen name="ProofConfirmation" component={ProofConfirmationScreen} />
-        <Stack.Screen name="ProofSuccess" component={ProofSuccessScreen} />
-        <Stack.Screen name="HomePageScreen" component={HomePageScreen} />
-        <Stack.Screen name="Cars" component={CarsScreen} />
-        <Stack.Screen name="AddCar" component={AddCarScreen} />
-        <Stack.Screen name="AllBooking" component={AllBookingScreen} />
-        <Stack.Screen name="Earnings" component={EarningsScreen} />
-        <Stack.Screen name="AccountProfile" component={AccountProfile} />
-        <Stack.Screen name="Users" component={UsersListScreen} />
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
-        {/* Add other screens here */}
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+	return (
+		<NavigationContainer>
+			<QueryClientProvider client={new QueryClient()}>
+				<Stack.Navigator screenOptions={{ headerShown: false }}>
+					<Stack.Screen name="AccountType" component={AccountTypeScreen} />
+					{/* <Stack.Screen name="MainTabs" component={PublishScreen} /> */}
+					<Stack.Screen name="MainTabs" component={MainTabs} />
+					<Stack.Screen name="HomePage" component={HomePage} />
+					<Stack.Screen name="PROPERTY" component={PropertyScreen} />
+					<Stack.Screen name="LOCATION" component={LocationScreen} />
+					<Stack.Screen name="MAPSCREEN" component={MapScreen} />
+					<Stack.Screen name="AmenityScreen" component={AmenityScreen} />
+					<Stack.Screen name="AddPhotoScreen" component={AddPhotoScreen} />
+					<Stack.Screen name="AddListingScreen" component={AddListingScreen} />
+					<Stack.Screen name="AboutScreen" component={AboutScreen} />
+					<Stack.Screen name="PlaceNameScreen" component={PlaceNameScreen} />
+					<Stack.Screen
+						name="CreateProfileScreen"
+						component={CreateProfileScreen}
+					/>
+					<Stack.Screen
+						name="VerificationScreen"
+						component={VerificationScreen}
+					/>
+					<Stack.Screen
+						name="PhoneNumberScreen"
+						component={PhoneNumberScreen}
+					/>
+					<Stack.Screen name="PhoneScreen" component={PhoneScreen} />
+					<Stack.Screen name="SettingScreen" component={SettingsScreen} />
+					<Stack.Screen name="Host" component={HostPreferenceScreen} />
+					<Stack.Screen name="Notice" component={NoticePeriodScreen} />
+					<Stack.Screen name="NoticeBoard" component={NoticeBoardScreen} />
+					<Stack.Screen name="PublishScreen" component={MainTabs} />
+					<Stack.Screen name="Notification" component={NotificationScreen} />
+					<Stack.Screen name="ViewsBooking" component={ViewsBookingScreen} />
+					<Stack.Screen
+						name="TransactionHistory"
+						component={TransactionHistoryScreen}
+					/>
+					<Stack.Screen name="Conversation" component={ConversationScreen} />
+					<Stack.Screen name="AllListings" component={AllListingsScreen} />
+					<Stack.Screen
+						name="ListingDetails"
+						component={ListingDetailsScreen}
+					/>
+					<Stack.Screen name="ListingTitle" component={ListingTitleScreen} />
+					<Stack.Screen
+						name="AmenitiesSetting"
+						component={AmenitiesSettingScreen}
+					/>
+					<Stack.Screen
+						name="ListingLocation"
+						component={ListingLocationScreen}
+					/>
+					<Stack.Screen name="GuestBooking" component={GuestBookingScreen} />
+					<Stack.Screen name="Requirement" component={ListingRules} />
+					<Stack.Screen name="Listing" component={Listing} />
+					<Stack.Screen
+						name="Cancellation"
+						component={CancellationPolicyScreen}
+					/>
+					<Stack.Screen
+						name="AvailabilitySettings"
+						component={AvailabilitySettings}
+					/>
+					<Stack.Screen name="TripLenght" component={TripLength} />
+					<Stack.Screen name="CheckInCheckOut" component={CheckInCheckOut} />
+					<Stack.Screen name="Regulations" component={Regulations} />
+					<Stack.Screen name="Status" component={StatusScreen} />
+					<Stack.Screen name="MyProfile" component={MyProfile} />
+					<Stack.Screen name="ProfileEdit" component={ProfileEdit} />
+					<Stack.Screen name="Wallet" component={Wallet} />
+					<Stack.Screen
+						name="NotificationSettings"
+						component={NotificationSettings}
+					/>
+					<Stack.Screen name="Privacy" component={PrivacyScreen} />
+					<Stack.Screen name="Security" component={SecurityScreen} />
+					<Stack.Screen name="HelpCenter" component={HelpCenterScreen} />
+					<Stack.Screen name="Help" component={HelpScreen} />
+					<Stack.Screen name="DeleteAccount" component={DeleteAccountScreen} />
+					<Stack.Screen name="Consent" component={ConsentScreen} />
+					<Stack.Screen name="Warning" component={WarningScreen} />
+					<Stack.Screen name="Confirmation" component={ConfirmationScreen} />
+					<Stack.Screen
+						name="Verification"
+						component={VerificationCodeScreen}
+					/>
+					<Stack.Screen name="Success" component={SuccessScreen} />
+					<Stack.Screen name="CarOwner" component={CarOwnerVerification} />
+					<Stack.Screen name="Proof" component={ProofInsuranceScreen} />
+					<Stack.Screen
+						name="ProofConfirmation"
+						component={ProofConfirmationScreen}
+					/>
+					<Stack.Screen name="ProofSuccess" component={ProofSuccessScreen} />
+					<Stack.Screen name="HomePageScreen" component={HomePageScreen} />
+					<Stack.Screen name="Cars" component={CarsScreen} />
+					<Stack.Screen name="AddCar" component={AddCarScreen} />
+					<Stack.Screen name="AllBooking" component={AllBookingScreen} />
+					<Stack.Screen name="Earnings" component={EarningsScreen} />
+					<Stack.Screen name="AccountProfile" component={AccountProfile} />
+					<Stack.Screen name="Users" component={UsersListScreen} />
+					<Stack.Screen name="HomeScreen" component={HomeScreen} />
+					{/* Add other screens here */}
+				</Stack.Navigator>
+			</QueryClientProvider>
+		</NavigationContainer>
+	);
 };
- 
+
 export default App;
